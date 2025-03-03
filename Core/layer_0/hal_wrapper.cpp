@@ -19,7 +19,7 @@
 /* third-party includes */
 
 /* layer_0 includes */
-#include "hal.h"
+#include "w_hal.h"
 /* layer_1_rtosal includes */
 
 /* layer_1 includes */
@@ -34,7 +34,7 @@
 #include "hal_wrapper.h"
 
 
-namespace hal
+namespace w_hal
 {
 
     status_t timer_register_callback(timer_handle_t* arg_timer_handle, timer_callback_id_t arg_callback_id_t, timer_callback_t arg_callback)
@@ -63,7 +63,7 @@ namespace hal
 
     uint8_t gpio_read_pin(gpio_t* arg_port_name, uint16_t arg_gpio_pin)
     {
-        hal::gpio_pin_state_t pin_state;
+        w_hal::gpio_pin_state_t pin_state;
 
         assert_param(IS_GPIO_PIN(arg_gpio_pin));
 

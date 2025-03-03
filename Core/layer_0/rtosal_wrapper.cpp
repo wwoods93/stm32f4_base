@@ -16,7 +16,7 @@
 
 /* third-party includes */
 
-/* hal includes */
+/* w_hal includes */
 
 /* driver includes */
 

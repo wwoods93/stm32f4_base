@@ -44,7 +44,7 @@ uint32_t serial_monitor::initialize(UART_HandleTypeDef* arg_usart_module)
 uint32_t serial_monitor::print( uint8_t* arg_output_string)
 {
 //    packet_t packet;
-//    hal::rtc_get_time_stamp(time_stamp);
+//    w_hal::rtc_get_time_stamp(time_stamp);
 //    memset(&packet, '\0', sizeof(packet_t));
 //    sprintf(packet.message, "%s->%s:: %s", time_stamp, name, arg_output_string);
 

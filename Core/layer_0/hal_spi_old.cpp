@@ -18,7 +18,7 @@
 ///* third-party includes */
 //
 ///* layer_0 includes */
-//#include "hal.h"
+//#include "w_hal.h"
 //#include "hal_wrapper.h"
 ////#include "hal_callback.h"
 //#include "hal_spi_definitions.h"
@@ -36,7 +36,7 @@
 ///* hal_spi header */
 //#include "hal_spi_old.h"
 //
-//spi::procedure_status_t spi::initialize(module_t* arg_module, uint8_t arg_instance_id, hal::timer_handle_t* arg_timeout_timer_handle)
+//spi::procedure_status_t spi::initialize(module_t* arg_module, uint8_t arg_instance_id, w_hal::timer_handle_t* arg_timeout_timer_handle)
 //{
 //    procedure_status_t status = PROCEDURE_STATUS_OK;
 //
@@ -166,12 +166,12 @@
 //    {
 //        case SPI_1_ID:
 //        {
-//            hal::spi_1_msp_initialize();
+//            w_hal::spi_1_msp_initialize();
 //            break;
 //        }
 //        case SPI_2_ID:
 //        {
-//            hal::spi_2_msp_initialize();
+//            w_hal::spi_2_msp_initialize();
 //            break;
 //        }
 //        default:
@@ -281,7 +281,7 @@
 //    return PROCEDURE_STATUS_OK;
 //}
 //
-//spi::procedure_status_t spi::create_channel(int16_t& arg_channel_id, hal::gpio_t* arg_chip_select_port, uint16_t arg_chip_select_pin, uint8_t arg_is_inter_task, rtosal::message_queue_handle_t arg_tx_message_queue, rtosal::message_queue_handle_t arg_rx_message_queue)
+//spi::procedure_status_t spi::create_channel(int16_t& arg_channel_id, w_hal::gpio_t* arg_chip_select_port, uint16_t arg_chip_select_pin, uint8_t arg_is_inter_task, rtosal::message_queue_handle_t arg_tx_message_queue, rtosal::message_queue_handle_t arg_rx_message_queue)
 //{
 //    procedure_status_t status = PROCEDURE_STATUS_OK;
 //
@@ -394,7 +394,7 @@
 //            break;
 //        }
 //    }
-//    hal::gpio_write_pin(new_channel.chip_select.port, new_channel.chip_select.pin, CHIP_SELECT_RESET);
+//    w_hal::gpio_write_pin(new_channel.chip_select.port, new_channel.chip_select.pin, CHIP_SELECT_RESET);
 //
 //    arg_channel_id = new_channel_id;
 //
@@ -1118,7 +1118,7 @@
 //            module->chip_select_port = active_packet.chip_select.port;
 //            module->chip_select_pin = active_packet.chip_select.pin;
 //
-//            hal::gpio_write_pin(active_packet.chip_select.port, active_packet.chip_select.pin, (GPIO_PinState) CHIP_SELECT_SET);
+//            w_hal::gpio_write_pin(active_packet.chip_select.port, active_packet.chip_select.pin, (GPIO_PinState) CHIP_SELECT_SET);
 //
 //            enable_interrupt(SPI_CR2_BIT_TX_BUFFER_EMPTY_INTERRUPT_ENABLE | SPI_CR2_BIT_RX_BUFFER_NOT_EMPTY_INTERRUPT_ENABLE | SPI_CR2_BIT_ERROR_INTERRUPT_ENABLE);
 //

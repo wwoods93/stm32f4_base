@@ -19,7 +19,7 @@
 /* third-party includes */
 #include "cmsis_os.h"
 /* layer_0 includes */
-#include "../layer_0/hal.h"
+#include "../layer_0/w_hal.h"
 #include "../layer_0/hal_spi.h"
 //#include "../layer_0/hal_spi_old.h"
 #include "../layer_0/rtosal.h"
@@ -34,7 +34,7 @@ static constexpr uint8_t SYSTEM_RUN = 1U;
 
 
 
-UART_HandleTypeDef huart2;
+
 
 serial_monitor debug_serial_monitor;
 
@@ -51,7 +51,7 @@ const osThreadAttr_t heartbeat_task_attributes  = { .name = "heartbeat_task",   
 
 const osTimerAttr_t comms_handler_tick_attributes = { .name = "comms_handler_tick" };
 
-SPI_HandleTypeDef hspi2;
+
 void MX_SPI2_Init();
 
 [[noreturn]] void start_client_task(void *argument);
@@ -64,18 +64,17 @@ void comms_handler_tick_callback(void *argument);
 int main()
 {
     HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_USART2_UART_Init();
-    MX_TIM2_Init();
-    MX_RTC_Init();
-    MX_SPI2_Init();
+    w_hal::sys_clk_config();
+    w_hal::gpio_init();
+    w_hal::uart2_init();
+    w_hal::tim2_init();
+    w_hal::rtc_init();
+    w_hal::spi2_init();
     HAL_TIM_Base_Start(get_timer_2_handle());
 
     osKernelInitialize();
 
-    comms_handler_tick_handle = osTimerNew(comms_handler_tick_callback, osTimerPeriodic, nullptr,
-                                           &comms_handler_tick_attributes);
+    comms_handler_tick_handle = osTimerNew(comms_handler_tick_callback, osTimerPeriodic, nullptr, &comms_handler_tick_attributes);
     client_task_handle = osThreadNew(start_client_task, nullptr, &client_task_attributes);
     spi_task_handle = osThreadNew(start_spi_task, nullptr, &spi_task_attributes);
     heartbeat_task_handle = osThreadNew(start_heartbeat_task, nullptr, &heartbeat_task_attributes);
@@ -114,7 +113,7 @@ int main()
 
     rtosal::event_flag_set(initialization_event_flags_handle, READY_FOR_USER_INIT_FLAG);
 
-    hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 1U);
+    w_hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 1U);
 
     while (SYSTEM_RUN)
     {
@@ -123,13 +122,13 @@ int main()
 
             rx_bytes[0] = spi_2.etl_test(1);
             HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-            hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 0U);
-            HAL_SPI_Transmit(&hspi2, tx_bytes, 8, 100U);
-            hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 1U);
+            w_hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 0U);
+            HAL_SPI_Transmit(w_hal::spi2_get_handle(), tx_bytes, 8, 100U);
+            w_hal::gpio_write_pin(PORT_B, GPIO_PIN_14, 1U);
             spi_task_count = get_timer_count(get_timer_2_handle());
         }
 
-//        if (hal::gpio_read_pin(PORT_B, GPIO_PIN_14) == 0U)
+//        if (w_hal::gpio_read_pin(PORT_B, GPIO_PIN_14) == 0U)
 //        {
 //            HAL_SPI_Receive(&hspi2, rx_bytes, 8, 100U);
 //        }
@@ -164,7 +163,7 @@ void Error_Handler(void)
 
 void SPI2_IRQHandler()
 {
-    HAL_SPI_IRQHandler(&hspi2);
+    HAL_SPI_IRQHandler(w_hal::spi2_get_handle());
 }
 
 void USART2_IRQHandler()
@@ -236,26 +235,7 @@ void CAN2_SCE_IRQHandler()
 //    HAL_CAN_IRQHandler(&hcan2);
 }
 
-void MX_SPI2_Init()
-{
-    hspi2.Instance = SPI2;
-    hspi2.Init.Mode = SPI_MODE_MASTER;
-    hspi2.Init.Direction = SPI_DIRECTION_2LINES;
-    hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
-    hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-    hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
-    hspi2.Init.NSS = SPI_NSS_SOFT;
-    hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
-    hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
-    hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
-    hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-    hspi2.Init.CRCPolynomial = 7;
-    if (HAL_SPI_Init(&hspi2) != HAL_OK)
-    {
-        Error_Handler();
-    }
 
-}
 void callback_spi_peripheral_tx_rx_complete(SPI_HandleTypeDef *hspi)
 {
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
@@ -276,21 +256,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-
-
-void MX_USART2_UART_Init()
-{
-    huart2.Instance = USART2;
-    huart2.Init.BaudRate = 115200;
-    huart2.Init.WordLength = UART_WORDLENGTH_8B;
-    huart2.Init.StopBits = UART_STOPBITS_1;
-    huart2.Init.Parity = UART_PARITY_NONE;
-    huart2.Init.Mode = UART_MODE_TX_RX;
-    huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-    if (HAL_UART_Init(&huart2) != HAL_OK)
-    {
-        error_handler();
-    }
-}

@@ -19,7 +19,7 @@
 
 /* third-party includes */
 #include "cmsis_os2.h"
-/* hal includes */
+/* w_hal includes */
 
 /* driver includes */
 

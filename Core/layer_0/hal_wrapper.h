@@ -42,7 +42,7 @@ typedef enum
 
 
 #define PORT_A (hal::gpio_t*)GPIOA
-#define PORT_B (hal::gpio_t*)GPIOB
+#define PORT_B (w_hal::gpio_t*)GPIOB
 #define PORT_C (hal::gpio_t*)GPIOC
 #define PORT_D (hal::gpio_t*)GPIOD
 #define PORT_E (hal::gpio_t*)GPIOE
@@ -70,7 +70,7 @@ typedef enum
 
 
 
-namespace hal
+namespace w_hal
 {
 //    static constexpr uint8_t PIN_SET = 1U;
 //    static constexpr uint8_t PIN_RESET = 0U;

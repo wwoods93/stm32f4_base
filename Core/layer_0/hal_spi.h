@@ -20,7 +20,7 @@
 /* third-party includes */
 
 /* layer_0_hal includes */
-#include "hal.h"
+#include "w_hal.h"
 #include "hal_spi_definitions.h"
 /* layer_1_rtosal includes */
 
@@ -95,7 +95,7 @@ class spi
 
     typedef struct
     {
-        hal::gpio_t     port;
+        w_hal::gpio_t     port;
         uint16_t        pin;
     } chip_select_t;
 
@@ -144,7 +144,7 @@ class spi
         volatile uint16_t           rx_counter;
         uint8_t                     rx_data_ready_flag;
         lock_t                      lock;
-        hal::gpio_t*                chip_select_port;
+        w_hal::gpio_t*                chip_select_port;
         uint16_t                    chip_select_pin;
     } resource_t;
 

@@ -101,28 +101,37 @@
 #define INPUT_B9_Pin GPIO_PIN_9
 #define INPUT_B9_GPIO_Port GPIOB
 
-namespace hal
+namespace w_hal
 {
 //    extern spi spi_2;
 
 //    spi* get_spi_2_object();
     void i2c_build_packet_array_from_converted_bytes(uint8_t* arg_i2c_packet_array, uint8_t arg_global_id, const uint8_t* arg_converted_bytes);
 
-    void timer_2_initialize();
+    void tim2_init();
+    void sys_clk_config();
+    void adc2_init();
+    void rtc_init();
+    void gpio_init();
+    void uart2_init();
+//void MX_TIM2_Init();
+
+    void spi1_init();
+    void spi2_init();
+    void spi3_init();
+
+    void can2_init();
+    void dac_init();
+    void i2c2_init();
+    void iwdg_init();
+
+    SPI_HandleTypeDef* spi2_get_handle();
+
+    HAL_StatusTypeDef rcc_oscillator_config(RCC_OscInitTypeDef  *RCC_OscInitStruct);
 }
 
-void SystemClock_Config();
-void MX_GPIO_Init();
-void MX_USART2_UART_Init();
-void MX_TIM2_Init();
-void MX_RTC_Init();
-void MX_SPI1_Init();
-void MX_SPI3_Init();
-void MX_ADC2_Init();
-void MX_CAN2_Init();
-void MX_DAC_Init();
-void MX_I2C2_Init();
-void MX_IWDG_Init();
+
+
 
 void error_handler();
 //void Error_Handler();
@@ -131,8 +140,8 @@ SPI_HandleTypeDef* get_spi_1_handle();
 RTC_HandleTypeDef* get_rtc_handle();
 TIM_HandleTypeDef* get_timer_2_handle();
 uint32_t get_timer_2_count();
-uint32_t get_timer_count(hal::timer_handle_t* arg_timer_handle);
-HAL_StatusTypeDef hal_rcc_oscillator_config(RCC_OscInitTypeDef  *RCC_OscInitStruct);
+uint32_t get_timer_count(w_hal::timer_handle_t* arg_timer_handle);
+
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 

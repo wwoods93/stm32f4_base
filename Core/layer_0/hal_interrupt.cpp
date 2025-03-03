@@ -17,7 +17,7 @@
 /* third-party includes */
 
 /* layer_0_hal includes */
-#include "hal.h"
+#include "w_hal.h"
 /* layer_1_rtosal includes */
 
 /* layer_2_device includes */
@@ -55,12 +55,12 @@
 
 void SPI1_IRQHandler()
 {
-//    spi_irq_handler(hal::get_spi_1_object());
+//    spi_irq_handler(w_hal::get_spi_1_object());
 }
 
 //void SPI2_IRQHandler()
 //{
-//    spi_irq_handler(hal::get_spi_2_object());
+//    spi_irq_handler(w_hal::get_spi_2_object());
 //}
 
 //void USART2_IRQHandler()

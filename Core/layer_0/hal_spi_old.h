@@ -154,7 +154,7 @@
 //
 //        typedef struct
 //        {
-//            hal::gpio_t*    port;
+//            w_hal::gpio_t*    port;
 //            uint16_t        pin;
 //        } chip_select_t;
 //
@@ -207,7 +207,7 @@
 //            volatile uint16_t           rx_transfer_counter;
 //            uint8_t                     rx_data_ready_flag;
 //            lock_t                      lock;
-//            hal::gpio_t*                chip_select_port;
+//            w_hal::gpio_t*                chip_select_port;
 //            uint16_t                    chip_select_pin;
 //        } module_t;
 //
@@ -224,7 +224,7 @@
 //        int8_t                      tx_isr_id = ID_INVALID;
 //        int8_t                      rx_isr_id = ID_INVALID;
 //        uint8_t*                    rx_pointer;
-//        hal::timer_handle_t*        timeout_timer_handle;
+//        w_hal::timer_handle_t*        timeout_timer_handle;
 //        uint32_t                    send_timeout_start;
 //        uint32_t                    process_send_buffer_timeout_start;
 //        int16_t                     next_available_channel_id = 0U;
@@ -266,7 +266,7 @@
 //        } channel_list;
 //
 //        procedure_status_t initialize(module_t* arg_module, uint8_t arg_instance_t, TIM_HandleTypeDef* arg_timeout_timer_handle);
-//        procedure_status_t create_channel(int16_t& arg_channel_id, hal::gpio_t* arg_chip_select_port, uint16_t arg_chip_select_pin, uint8_t arg_is_inter_task, rtosal::message_queue_handle_t arg_tx_message_queue, rtosal::message_queue_handle_t arg_rx_message_queue);
+//        procedure_status_t create_channel(int16_t& arg_channel_id, w_hal::gpio_t* arg_chip_select_port, uint16_t arg_chip_select_pin, uint8_t arg_is_inter_task, rtosal::message_queue_handle_t arg_tx_message_queue, rtosal::message_queue_handle_t arg_rx_message_queue);
 //        procedure_status_t send_receive(uint8_t* arg_tx_bytes, uint8_t (&arg_rx_bytes)[TX_SIZE_MAX], uint8_t* arg_bytes_per_tx, int16_t arg_channel_id);
 //        procedure_status_t send_receive_byte(uint8_t& arg_tx_byte, uint8_t& arg_rx_byte, int16_t arg_channel_id);
 //        int16_t send_async(uint8_t* arg_tx_bytes, uint8_t* arg_bytes_per_tx, int16_t arg_channel_id);
@@ -374,13 +374,13 @@
 //        active_packet.rx_bytes[packet_index++] = rx_pointer[transaction_index];
 //    }
 //
-//    hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
+//    w_hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
 //    module->rx_data_ready_flag = 1U;
 //}
 //
 //inline void spi::handle_tx_success()
 //{
-//    hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
+//    w_hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
 //    module->rx_data_ready_flag = 1U;
 //}
 //
@@ -391,7 +391,7 @@
 //        active_packet.rx_bytes[packet_index++] = rx_pointer[transaction_index];
 //    }
 //
-//    hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
+//    w_hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
 //
 //    if (packet_index >= total_byte_count)
 //    {
@@ -403,7 +403,7 @@
 //
 //inline void spi::handle_transaction_error() const
 //{
-//    hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
+//    w_hal::gpio_write_pin(module->chip_select_port, module->chip_select_pin, GPIO_PIN_SET);
 //    module->rx_data_ready_flag = 1U;
 //}
 //

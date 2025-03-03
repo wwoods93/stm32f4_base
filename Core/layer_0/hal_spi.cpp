@@ -17,7 +17,7 @@
 /* third-party includes */
 
 /* layer_0_hal includes */
-#include "hal.h"
+#include "w_hal.h"
 /* layer_1_rtosal includes */
 
 /* layer_2_device includes */
