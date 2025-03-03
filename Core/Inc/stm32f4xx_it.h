@@ -52,12 +52,20 @@ void MemManage_Handler(void);
 void BusFault_Handler(void);
 void UsageFault_Handler(void);
 void DebugMon_Handler(void);
+void WWDG_IRQHandler(void);
 void RCC_IRQHandler(void);
+void ADC_IRQHandler(void);
 void TIM4_IRQHandler(void);
-void SPI1_IRQHandler(void);
+void I2C2_EV_IRQHandler(void);
+void I2C2_ER_IRQHandler(void);
 void SPI2_IRQHandler(void);
 void USART2_IRQHandler(void);
-void SPI3_IRQHandler(void);
+void EXTI15_10_IRQHandler(void);
+void TIM6_DAC_IRQHandler(void);
+void CAN2_TX_IRQHandler(void);
+void CAN2_RX0_IRQHandler(void);
+void CAN2_RX1_IRQHandler(void);
+void CAN2_SCE_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

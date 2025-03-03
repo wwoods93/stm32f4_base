@@ -50,7 +50,7 @@ namespace hal
     void gpio_write_pin(gpio_t* arg_port_name, uint16_t arg_gpio_pin, uint8_t arg_pin_state)
     {
         assert_param(IS_GPIO_PIN(arg_gpio_pin));
-        assert_param(IS_GPIO_PIN_ACTION(PinState));
+        assert_param(IS_GPIO_PIN_ACTION(arg_pin_state));
         if(arg_pin_state != GPIO_PIN_RESET)
         {
             arg_port_name->BIT_SET_RESET_REG = arg_gpio_pin;
@@ -65,8 +65,7 @@ namespace hal
     {
         hal::gpio_pin_state_t pin_state;
 
-        /* Check the parameters */
-        assert_param(IS_GPIO_PIN(GPIO_Pin));
+        assert_param(IS_GPIO_PIN(arg_gpio_pin));
 
         if((arg_port_name->INPUT_DATA_REG & arg_gpio_pin) != (uint32_t)GPIO_PIN_RESET)
         {

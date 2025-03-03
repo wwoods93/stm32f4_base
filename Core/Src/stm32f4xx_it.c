@@ -55,10 +55,14 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern SPI_HandleTypeDef hspi1;
+extern ADC_HandleTypeDef hadc2;
+extern CAN_HandleTypeDef hcan2;
+extern DAC_HandleTypeDef hdac;
+extern I2C_HandleTypeDef hi2c2;
 extern SPI_HandleTypeDef hspi2;
-extern SPI_HandleTypeDef hspi3;
+extern TIM_HandleTypeDef htim6;
 extern UART_HandleTypeDef huart2;
+extern WWDG_HandleTypeDef hwwdg;
 extern TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN EV */
@@ -146,39 +150,67 @@ void UsageFault_Handler(void)
 /**
   * @brief This function handles Debug monitor.
   */
-void DebugMon_Handler(void)
-{
-  /* USER CODE BEGIN DebugMonitor_IRQn 0 */
-
-  /* USER CODE END DebugMonitor_IRQn 0 */
-  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
-
-  /* USER CODE END DebugMonitor_IRQn 1 */
-}
-
-/******************************************************************************/
-/* STM32F4xx Peripheral Interrupt Handlers                                    */
-/* Add here the Interrupt Handlers for the used peripherals.                  */
-/* For the available peripheral interrupt handler names,                      */
-/* please refer to the startup file (startup_stm32f4xx.s).                    */
-/******************************************************************************/
-
-/**
-  * @brief This function handles RCC global interrupt.
-  */
-void RCC_IRQHandler(void)
-{
-  /* USER CODE BEGIN RCC_IRQn 0 */
-
-  /* USER CODE END RCC_IRQn 0 */
-  /* USER CODE BEGIN RCC_IRQn 1 */
-
-  /* USER CODE END RCC_IRQn 1 */
-}
-
-/**
-  * @brief This function handles TIM4 global interrupt.
-  */
+//void DebugMon_Handler(void)
+//{
+//  /* USER CODE BEGIN DebugMonitor_IRQn 0 */
+//
+//  /* USER CODE END DebugMonitor_IRQn 0 */
+//  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
+//
+//  /* USER CODE END DebugMonitor_IRQn 1 */
+//}
+//
+///******************************************************************************/
+///* STM32F4xx Peripheral Interrupt Handlers                                    */
+///* Add here the Interrupt Handlers for the used peripherals.                  */
+///* For the available peripheral interrupt handler names,                      */
+///* please refer to the startup file (startup_stm32f4xx.s).                    */
+///******************************************************************************/
+//
+///**
+//  * @brief This function handles Window watchdog interrupt.
+//  */
+//void WWDG_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN WWDG_IRQn 0 */
+//
+//  /* USER CODE END WWDG_IRQn 0 */
+//  HAL_WWDG_IRQHandler(&hwwdg);
+//  /* USER CODE BEGIN WWDG_IRQn 1 */
+//
+//  /* USER CODE END WWDG_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles RCC global interrupt.
+//  */
+//void RCC_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN RCC_IRQn 0 */
+//
+//  /* USER CODE END RCC_IRQn 0 */
+//  /* USER CODE BEGIN RCC_IRQn 1 */
+//
+//  /* USER CODE END RCC_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles ADC1, ADC2 and ADC3 interrupts.
+//  */
+//void ADC_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN ADC_IRQn 0 */
+//
+//  /* USER CODE END ADC_IRQn 0 */
+//  HAL_ADC_IRQHandler(&hadc2);
+//  /* USER CODE BEGIN ADC_IRQn 1 */
+//
+//  /* USER CODE END ADC_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles TIM4 global interrupt.
+//  */
 void TIM4_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM4_IRQn 0 */
@@ -189,19 +221,33 @@ void TIM4_IRQHandler(void)
 
   /* USER CODE END TIM4_IRQn 1 */
 }
-
-/**
-  * @brief This function handles SPI1 global interrupt.
-  */
-//void SPI1_IRQHandler(void)
+//
+///**
+//  * @brief This function handles I2C2 event interrupt.
+//  */
+//void I2C2_EV_IRQHandler(void)
 //{
-//  /* USER CODE BEGIN SPI1_IRQn 0 */
+//  /* USER CODE BEGIN I2C2_EV_IRQn 0 */
 //
-//  /* USER CODE END SPI1_IRQn 0 */
-//  HAL_SPI_IRQHandler(&hspi1);
-//  /* USER CODE BEGIN SPI1_IRQn 1 */
+//  /* USER CODE END I2C2_EV_IRQn 0 */
+//  HAL_I2C_EV_IRQHandler(&hi2c2);
+//  /* USER CODE BEGIN I2C2_EV_IRQn 1 */
 //
-//  /* USER CODE END SPI1_IRQn 1 */
+//  /* USER CODE END I2C2_EV_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles I2C2 error interrupt.
+//  */
+//void I2C2_ER_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN I2C2_ER_IRQn 0 */
+//
+//  /* USER CODE END I2C2_ER_IRQn 0 */
+//  HAL_I2C_ER_IRQHandler(&hi2c2);
+//  /* USER CODE BEGIN I2C2_ER_IRQn 1 */
+//
+//  /* USER CODE END I2C2_ER_IRQn 1 */
 //}
 //
 ///**
@@ -210,41 +256,112 @@ void TIM4_IRQHandler(void)
 //void SPI2_IRQHandler(void)
 //{
 //  /* USER CODE BEGIN SPI2_IRQn 0 */
-//
+////
 //  /* USER CODE END SPI2_IRQn 0 */
 //  HAL_SPI_IRQHandler(&hspi2);
 //  /* USER CODE BEGIN SPI2_IRQn 1 */
-//
+////
 //  /* USER CODE END SPI2_IRQn 1 */
 //}
-
-/**
-  * @brief This function handles USART2 global interrupt.
-  */
+//
+///**
+//  * @brief This function handles USART2 global interrupt.
+//  */
 //void USART2_IRQHandler(void)
 //{
 //  /* USER CODE BEGIN USART2_IRQn 0 */
-//
+////
 //  /* USER CODE END USART2_IRQn 0 */
 //  HAL_UART_IRQHandler(&huart2);
 //  /* USER CODE BEGIN USART2_IRQn 1 */
-//
+////
 //  /* USER CODE END USART2_IRQn 1 */
 //}
-
-/**
-  * @brief This function handles SPI3 global interrupt.
-  */
-void SPI3_IRQHandler(void)
-{
-  /* USER CODE BEGIN SPI3_IRQn 0 */
-
-  /* USER CODE END SPI3_IRQn 0 */
-  HAL_SPI_IRQHandler(&hspi3);
-  /* USER CODE BEGIN SPI3_IRQn 1 */
-
-  /* USER CODE END SPI3_IRQn 1 */
-}
+//
+///**
+//  * @brief This function handles EXTI line[15:10] interrupts.
+//  */
+//void EXTI15_10_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+//
+//  /* USER CODE END EXTI15_10_IRQn 0 */
+//  HAL_GPIO_EXTI_IRQHandler(B1_Pin);
+//  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+//
+//  /* USER CODE END EXTI15_10_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles TIM6 global interrupt and DAC1, DAC2 underrun error interrupts.
+//  */
+//void TIM6_DAC_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+//
+//  /* USER CODE END TIM6_DAC_IRQn 0 */
+//  HAL_DAC_IRQHandler(&hdac);
+//  HAL_TIM_IRQHandler(&htim6);
+//  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+//
+//  /* USER CODE END TIM6_DAC_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles CAN2 TX interrupt.
+//  */
+//void CAN2_TX_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN CAN2_TX_IRQn 0 */
+//
+//  /* USER CODE END CAN2_TX_IRQn 0 */
+//  HAL_CAN_IRQHandler(&hcan2);
+//  /* USER CODE BEGIN CAN2_TX_IRQn 1 */
+//
+//  /* USER CODE END CAN2_TX_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles CAN2 RX0 interrupt.
+//  */
+//void CAN2_RX0_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN CAN2_RX0_IRQn 0 */
+//
+//  /* USER CODE END CAN2_RX0_IRQn 0 */
+//  HAL_CAN_IRQHandler(&hcan2);
+//  /* USER CODE BEGIN CAN2_RX0_IRQn 1 */
+//
+//  /* USER CODE END CAN2_RX0_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles CAN2 RX1 interrupt.
+//  */
+//void CAN2_RX1_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN CAN2_RX1_IRQn 0 */
+//
+//  /* USER CODE END CAN2_RX1_IRQn 0 */
+//  HAL_CAN_IRQHandler(&hcan2);
+//  /* USER CODE BEGIN CAN2_RX1_IRQn 1 */
+//
+//  /* USER CODE END CAN2_RX1_IRQn 1 */
+//}
+//
+///**
+//  * @brief This function handles CAN2 SCE interrupt.
+//  */
+//void CAN2_SCE_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN CAN2_SCE_IRQn 0 */
+//
+//  /* USER CODE END CAN2_SCE_IRQn 0 */
+//  HAL_CAN_IRQHandler(&hcan2);
+//  /* USER CODE BEGIN CAN2_SCE_IRQn 1 */
+//
+//  /* USER CODE END CAN2_SCE_IRQn 1 */
+//}
 
 /* USER CODE BEGIN 1 */
 

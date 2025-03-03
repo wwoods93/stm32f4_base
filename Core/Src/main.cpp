@@ -36,7 +36,6 @@ static constexpr uint8_t SYSTEM_RUN = 1U;
 
 UART_HandleTypeDef huart2;
 
-
 serial_monitor debug_serial_monitor;
 
 osThreadId_t client_task_handle;
@@ -168,9 +167,73 @@ void SPI2_IRQHandler()
     HAL_SPI_IRQHandler(&hspi2);
 }
 
-void USART2_IRQHandler(void)
+void USART2_IRQHandler()
 {
-    HAL_UART_IRQHandler(&huart2);
+//    HAL_UART_IRQHandler(&huart2);
+}
+
+void DebugMon_Handler()
+{
+
+}
+
+void WWDG_IRQHandler()
+{
+//    HAL_WWDG_IRQHandler(&hwwdg);
+}
+
+void RCC_IRQHandler()
+{
+}
+
+
+void ADC_IRQHandler()
+{
+//    HAL_ADC_IRQHandler(&hadc2);
+}
+
+void I2C2_EV_IRQHandler()
+{
+//    HAL_I2C_EV_IRQHandler(&hi2c2);
+}
+
+/**
+  * @brief This function handles I2C2 error interrupt.
+  */
+void I2C2_ER_IRQHandler()
+{
+//    HAL_I2C_ER_IRQHandler(&hi2c2);
+}
+
+void EXTI15_10_IRQHandler()
+{
+//    HAL_GPIO_EXTI_IRQHandler(B1_Pin);
+}
+
+void TIM6_DAC_IRQHandler()
+{
+//    HAL_DAC_IRQHandler(&hdac);
+//    HAL_TIM_IRQHandler(&htim6);
+}
+
+void CAN2_TX_IRQHandler()
+{
+//    HAL_CAN_IRQHandler(&hcan2);
+}
+
+void CAN2_RX0_IRQHandler()
+{
+//    HAL_CAN_IRQHandler(&hcan2);
+}
+
+void CAN2_RX1_IRQHandler()
+{
+//    HAL_CAN_IRQHandler(&hcan2);
+}
+
+void CAN2_SCE_IRQHandler()
+{
+//    HAL_CAN_IRQHandler(&hcan2);
 }
 
 void MX_SPI2_Init()
@@ -205,13 +268,6 @@ void callback_spi_controller_error(SPI_HandleTypeDef *hspi)
 
 
 #ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
